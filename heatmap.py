@@ -28,6 +28,8 @@ def plotHeatmap(table,
 			table: pandas.DataFrame
 				Two dimensional array containing numerical values to be clustered.
 		kwargs:
+			cmap: str
+				Colormap used to produce color scale.
 			distance_metric: str
 				Distance metric used to determine distance between two vectors.
 				The distance function can be either of 'braycurtis', 'canberra',
@@ -103,6 +105,7 @@ def plotHeatmap(table,
 	# Plot heatmap
 	plt.pcolor(table.loc[row_names_reordered, column_names_reordered], vmin=vmin, vmax=vmax, cmap=cmap)
 	plt.ylim(0, len(row_names_reordered))
+	plt.xlim(0, len(column_names_reordered))
 	
 	# Plot column/ row labels
 	if(show_column_labels):
@@ -245,3 +248,62 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, ax = 
 	plt.yticks([] ,[])
 	
 	return legend_dict
+
+def plotColorScale(table, 
+		cmap="Reds", 
+		symmetric_color_scale = True, 
+		symmetry_point=0., 
+		vmin = None, 
+		vmax = None, 
+		ax = None):
+	'''
+		Function that plots the color scale of values inside a dataframe.
+
+		args:
+			table: pandas.DataFrame
+				Table containing numerical values.
+		
+		kwargs:
+			cmap: str
+				Colormap used to produce color scale.
+			symmetric_color_scale: bool
+				If true, vmin, and vmax will be set to have equal distance from symmetry
+				point
+			symmetry_point: float
+				Only used, when symmetric_color_scale is true. If symmetric_color_scale is
+				true, and symmetry_point is not set, it defaults to zero.
+			vmin: float
+				Minimal value of data_table, that has a color representation.
+			vmax: float
+				Maximal value of data_table, that has a color representation.
+			ax: matplotlib.axes.Axes
+				Axes instance on which to plot the color scale.
+			
+	'''
+	ax = ax if ax is not None else plt.gca()
+
+	# Calculate min and max value from table
+	if(vmin is None):
+		vmin = np.min(np.min(table))
+	if(vmax is None):
+		vmax = np.max(np.max(table))
+
+	# Calculate maximal distance to symmetry point
+	max_dist = max([np.abs(vmax-symmetry_point), np.abs(vmin-symmetry_point)])
+
+	# Calculate x axis extensions
+	xlim = [0, 256]
+	if(symmetric_color_scale):
+		xlim = [(0.5-(np.abs(vmin-symmetry_point)/max_dist)*.5)*256, 
+			(.5+np.abs(np.abs(vmax-symmetry_point)/max_dist)*.5)*256]
+
+	# Plot color scale
+	gradient = np.linspace(0, 1, 256)
+	gradient = np.vstack((gradient, gradient))
+	plt.imshow(gradient, cmap=cmap, aspect="auto")
+	plt.xlim(xlim)
+
+	plt.xticks(xlim, [round(vmin, 2), round(vmax, 2)], fontsize=6)
+	ax.xaxis.set_ticks_position('top')
+	plt.title("Values", fontsize=7)
+	plt.yticks([], [])
