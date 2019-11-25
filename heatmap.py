@@ -7,6 +7,14 @@ from matplotlib.patches import Rectangle
 
 import pandas as pnd
 
+##################
+# Some color lists
+colors = {}
+colors["set22"] = ["#a6cee3", "#2076b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#653d9a", "#ffff99", "#d6604d", "#8dd3c7", "#ffffb3", "#bdbbdb", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#f8cce5", "#d9d9d9", "#bc80bd"]
+colors["xkcd"] = ["#812b9c", "#d0a6fd", "#00ad1f", "#c27ef6", "#8cf67d", "#004fdf", "#29f9a2", "#6bbefd", "#ff84bf", "#0020aa", "#8d89fe", "#683600", "#d4b06f", "#ffd2df", "#b08050", "#ed0400", "#ff7200", "#c81477", "#690220", "#fffb19", "#d1b003", "#000000"]
+
+################
+# Plot Functions
 def plotHeatmap(table, 
 		cmap="Reds", 
 		distance_metric="correlation", 
@@ -167,7 +175,7 @@ def plotDendrogram(table,
 	
 	ax.axis("off")
 
-def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, ax = None):
+def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color_list = colors["xkcd"], ax = None):
 	"""
 		Function that plots annotations.
 
@@ -185,14 +193,12 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, ax = 
 				If 0, then the annotation is plotted vertically, i.e. for rows of a
 				DataFrame. If 1, then the annotation is plotted horizontally, i.e. for
 				columns of a DataFrame.
+			color_list: list
+				List of colors used to plot annotations.
 			ax: matplotlib.axes.Axes
 				Axes on which to plot the annotation.
 	"""
 	ax = ax if ax is not None else plt.gca()
-	
-	color_single = "w"
-	
-	color_list = ["#a6cee3", "#2076b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#653d9a", "#ffff99", "#d6604d", "#8dd3c7", "#ffffb3", "#bdbbdb", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#f8cce5", "#d9d9d9", "#bc80bd"]
 	
 	groups = list(set(annotation_df.loc[:, annotation_col_id]))
 	
@@ -200,42 +206,37 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, ax = 
 	
 	color_counter = 0
 	for group in groups:
-		if(len(annotation_df[annotation_df[annotation_col_id] == group].index) == 1):
-			groups_color_dict[group] = color_single
-		else:
-			groups_color_dict[group] = color_list[color_counter % len(color_list)]
-			color_counter += 1
+		groups_color_dict[group] = color_list[color_counter % len(color_list)]
+		color_counter += 1
 			
 	idx_counter = 0
-	legend_dict = {}
+	legend_list = []
 	if(axis == 1):
+		groups_list = []
 		for id_current in ids_sorted:
 			color = groups_color_dict[annotation_df.loc[id_current, annotation_col_id]]
 			patch = Rectangle((idx_counter, 0), 1, 1, color=color)
 			ax.add_patch(patch)
 			idx_counter += 1
 			
-			if(not color in legend_dict):
-				if(color == "w"):
-					legend_dict[color] = [ patch, "singleton" ]
-				else:
-					legend_dict[color] = [ patch, annotation_df.loc[id_current, annotation_col_id] ]
+			if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
+				legend_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
+				groups_list += [annotation_df.loc[id_current, annotation_col_id]]
 		plt.xlim(0, len(ids_sorted))
 		plt.ylim(0, 1)
 		ax.yaxis.set_label_position("right")
 		plt.ylabel(annotation_col_id, rotation=0, verticalalignment="center", horizontalalignment="left", fontsize=7)
 	elif(axis == 0):
+		groups_list = []
 		for id_current in ids_sorted:
 			color = groups_color_dict[annotation_df.loc[id_current, annotation_col_id]]
 			patch = Rectangle((0, idx_counter), 1, 1, color=color)
 			ax.add_patch(patch)
 			idx_counter += 1
 			
-			if(not color in legend_dict):
-				if(color == "w"):
-					legend_dict[color] = [ patch, "singleton" ]
-				else:
-					legend_dict[color] = [ patch, annotation_df.loc[id_current, annotation_col_id] ]
+			if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
+				legend_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
+				groups_list += [annotation_df.loc[id_current, annotation_col_id]]
 		plt.ylim(0, len(ids_sorted))
 		plt.xlim(0, 1)
 		plt.xlabel(annotation_col_id, rotation=90, verticalalignment="top", horizontalalignment="center", fontsize=7)
@@ -247,7 +248,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, ax = 
 	plt.xticks([] ,[])
 	plt.yticks([] ,[])
 	
-	return legend_dict
+	return legend_list
 
 def plotColorScale(table, 
 		cmap="Reds", 
