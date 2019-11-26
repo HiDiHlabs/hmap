@@ -23,6 +23,8 @@ def Heatmap(table,
 		show_row_labels = False, 
 		row_clustering = True,
 		column_clustering = True,
+		custom_row_clustering = None,
+		custom_column_clustering = None,
 		vmin = None,
 		vmax = None,
 		symmetric_color_scale = False,
@@ -59,6 +61,12 @@ def Heatmap(table,
 			column_clustering; bool
 				If true, the columns are clustered according to distance:metric, and
 				linkage_method.
+			custom_row_clustering: list
+				List of Row ids from table in the order they should appear in the heatmap.
+				Only applies if row_clustering is False.
+			custom_column_clustering: list
+				List of column ids from table in the order they should appear in the heatmap.
+				Only applies if column_clustering is False.
 			vmin: float
 				Minimal value of data_table, that has a color representation.
 			vmax: float
@@ -95,6 +103,8 @@ def Heatmap(table,
 	
 		column_names = list(table.columns)
 		column_names_reordered = [ column_names[i] for i in leaves ]
+	elif(not(custom_column_clustering is None)):
+		column_names_reordered = custom_column_clustering
 	
 	# Sort row names
 	row_names_reordered = list(table.index)
@@ -107,6 +117,8 @@ def Heatmap(table,
 	
 		row_names = list(table.index)
 		row_names_reordered = [ row_names[i] for i in leaves ]
+	elif(not(custom_row_clustering is None)):
+		row_names_reordered = custom_row_clustering
 
 	# Override vmin and vmax if symmetric_color_scale is True
 	if(symmetric_color_scale):
