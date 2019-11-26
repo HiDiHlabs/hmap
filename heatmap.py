@@ -71,6 +71,15 @@ def plotHeatmap(table,
 				true, and symmetry_point is not set, it defaults to zero.
 			ax: matplotlib.axes.Axes
 				Axes instance on which to plot heatmap.
+		Returns: tuple
+			column_names_reordered: list
+				List of column names after reordering as given as column names of table.
+			row_names_reordered: list
+				List of row names after reordering as given as index names of table.
+			vmin: float
+				Minimal value of table, that gets a color representation in heatmap.
+			vmax: float
+				Maximal value of table, that gets a color representation in heatmap.
 				
 	"""
 	ax = ax if ax is not None else plt.gca()
@@ -159,9 +168,14 @@ def plotDendrogram(table,
 				width of the lines (in points) defining the dengrogram.
 			ax: matplotlib.axes.Axes
 				Axes n which to plot the dendrogram.
+		Returns:
+			dendrogram_dict: dict
+				Resulting dictionary from scipy.cluster.hierarchy.dendrogram function
+			
 	"""
 	ax = ax if ax is not None else plt.gca()
 
+	dendrogram_dict = None
 	if(axis == 0):
 		distance_matrix = pdist(table, metric=distance_metric)
 		linkage_matrix = linkage(distance_matrix, metric=distance_metric, method=linkage_method)
@@ -174,6 +188,8 @@ def plotDendrogram(table,
 			dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0)
 	
 	ax.axis("off")
+
+	return dendrogram_dict
 
 def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color_list = colors["xkcd"], ax = None):
 	"""
@@ -197,6 +213,10 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 				List of colors used to plot annotations.
 			ax: matplotlib.axes.Axes
 				Axes on which to plot the annotation.
+		Returns:
+			patch_list:
+				List containing representative patches per group, along with the group name
+				and the color representation of the group,
 	"""
 	ax = ax if ax is not None else plt.gca()
 	
@@ -210,7 +230,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 		color_counter += 1
 			
 	idx_counter = 0
-	legend_list = []
+	patch_list = []
 	if(axis == 1):
 		groups_list = []
 		for id_current in ids_sorted:
@@ -220,7 +240,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 			idx_counter += 1
 			
 			if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
-				legend_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
+				patch_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
 				groups_list += [annotation_df.loc[id_current, annotation_col_id]]
 		plt.xlim(0, len(ids_sorted))
 		plt.ylim(0, 1)
@@ -235,7 +255,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 			idx_counter += 1
 			
 			if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
-				legend_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
+				patch_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
 				groups_list += [annotation_df.loc[id_current, annotation_col_id]]
 		plt.ylim(0, len(ids_sorted))
 		plt.xlim(0, 1)
@@ -248,7 +268,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 	plt.xticks([] ,[])
 	plt.yticks([] ,[])
 	
-	return legend_list
+	return patch_list
 
 def plotColorScale(table, 
 		cmap="Reds", 
@@ -279,6 +299,8 @@ def plotColorScale(table,
 				Maximal value of data_table, that has a color representation.
 			ax: matplotlib.axes.Axes
 				Axes instance on which to plot the color scale.
+		Returns:
+			Nothing to be returned.
 			
 	'''
 	ax = ax if ax is not None else plt.gca()
