@@ -15,7 +15,7 @@ colors["xkcd"] = ["#812b9c", "#d0a6fd", "#00ad1f", "#c27ef6", "#8cf67d", "#004fd
 
 ################
 # Plot Functions
-def plotHeatmap(table, 
+def Heatmap(table, 
 		cmap="Reds", 
 		distance_metric="correlation", 
 		linkage_method="complete", 
@@ -137,7 +137,7 @@ def plotHeatmap(table,
 		
 	return column_names_reordered, row_names_reordered, vmin, vmax
 
-def plotDendrogram(table,
+def Dendrogram(table,
 		distance_metric="correlation",
 		linkage_method="complete",
 		axis = 1,
@@ -191,7 +191,7 @@ def plotDendrogram(table,
 
 	return dendrogram_dict
 
-def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color_list = colors["xkcd"], ax = None):
+def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color_list = colors["xkcd"], ax = None):
 	"""
 		Function that plots annotations.
 
@@ -270,7 +270,7 @@ def plotAnnotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color
 	
 	return patch_list
 
-def plotColorScale(table, 
+def ColorScale(table, 
 		cmap="Reds", 
 		symmetric_color_scale = True, 
 		symmetry_point=0., 
