@@ -10,8 +10,16 @@ import pandas as pnd
 ##################
 # Some color lists
 colors = {}
-colors["set22"] = ["#a6cee3", "#2076b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#653d9a", "#ffff99", "#d6604d", "#8dd3c7", "#ffffb3", "#bdbbdb", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#f8cce5", "#d9d9d9", "#bc80bd"]
-colors["xkcd"] = ["#812b9c", "#d0a6fd", "#00ad1f", "#c27ef6", "#8cf67d", "#004fdf", "#29f9a2", "#6bbefd", "#ff84bf", "#0020aa", "#8d89fe", "#683600", "#d4b06f", "#ffd2df", "#b08050", "#ed0400", "#ff7200", "#c81477", "#690220", "#fffb19", "#d1b003", "#000000"]
+colors["set22"] = ["#a6cee3", "#2076b4", "#b2df8a", "#33a02c", "#fb9a99", 
+                   "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#653d9a", 
+                   "#ffff99", "#d6604d", "#8dd3c7", "#ffffb3", "#bdbbdb", 
+                   "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#f8cce5", 
+                   "#d9d9d9", "#bc80bd"]
+colors["xkcd"] = ["#812b9c", "#d0a6fd", "#00ad1f", "#c27ef6", "#8cf67d", 
+                  "#004fdf", "#29f9a2", "#6bbefd", "#ff84bf", "#0020aa", 
+                  "#8d89fe", "#683600", "#d4b06f", "#ffd2df", "#b08050", 
+                  "#ed0400", "#ff7200", "#c81477", "#690220", "#fffb19", 
+                  "#d1b003", "#000000"]
 
 ################
 # Plot Functions
@@ -36,21 +44,23 @@ def Heatmap(table,
 
 		args:
 			table: pandas.DataFrame
-				Two dimensional array containing numerical values to be clustered.
+				Two dimensional array containing numerical values to be 
+                clustered.
 		kwargs:
 			cmap: str
 				Colormap used to produce color scale.
 			distance_metric: str
 				Distance metric used to determine distance between two vectors.
 				The distance function can be either of 'braycurtis', 'canberra',
-				'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice', 'euclidean',
-				'hamming', 'jaccard', 'jensenshannon', 'kulsinski', 'mahalanobis',
-				'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean',
-				'sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule'.
+				'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice', 
+                'euclidean', 'hamming', 'jaccard', 'jensenshannon', 'kulsinski',
+                'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto', 
+                'russellrao', 'seuclidean', 'sokalmichener', 'sokalsneath', 
+                'sqeuclidean', 'yule'.
 			linkage_method: str
-				methods for calculating the distance between the newly formed cluster u 
-				and each v. Possible methods are, 'single', 'complete', 'average',
-				'weighted', and 'centroid'
+				methods for calculating the distance between the newly formed 
+                cluster u and each v. Possible methods are, 'single', 
+                'complete', 'average', 'weighted', and 'centroid'
 			show_column_labels: bool
 				If true, show labels of columns, as defined in table.
 			show_row_labels: bool
@@ -59,35 +69,40 @@ def Heatmap(table,
 				If true, the rows a clustered according to distance_metric, and
 				linkage_method.
 			column_clustering; bool
-				If true, the columns are clustered according to distance:metric, and
-				linkage_method.
+				If true, the columns are clustered according to distance:metric,
+                and linkage_method.
 			custom_row_clustering: list
-				List of Row ids from table in the order they should appear in the heatmap.
-				Only applies if row_clustering is False.
+				List of Row ids from table in the order they should appear in 
+                the heatmap. Only applies if row_clustering is False.
 			custom_column_clustering: list
-				List of column ids from table in the order they should appear in the heatmap.
-				Only applies if column_clustering is False.
+				List of column ids from table in the order they should appear 
+                in the heatmap.	Only applies if column_clustering is False.
 			vmin: float
 				Minimal value of data_table, that has a color representation.
 			vmax: float
 				Maximal value of data_table, that has a color representation.
 			symmetric_color_scale: bool
-				If true, vmin, and vmax will be set to have equal distance from symmetry
-				point
+				If true, vmin, and vmax will be set to have equal distance from
+                symmetry point.
 			symmetry_point: float
-				Only used, when symmetric_color_scale is true. If symmetric_color_scale is
-				true, and symmetry_point is not set, it defaults to zero.
+				Only used, when symmetric_color_scale is true. If 
+                symmetric_color_scale is true, and symmetry_point is not set,
+                it defaults to zero.
 			ax: matplotlib.axes.Axes
 				Axes instance on which to plot heatmap.
 		Returns: tuple
 			column_names_reordered: list
-				List of column names after reordering as given as column names of table.
+				List of column names after reordering as given as column names
+                of table.
 			row_names_reordered: list
-				List of row names after reordering as given as index names of table.
+				List of row names after reordering as given as index names of
+                table.
 			vmin: float
-				Minimal value of table, that gets a color representation in heatmap.
+				Minimal value of table, that gets a color representation in
+                heatmap.
 			vmax: float
-				Maximal value of table, that gets a color representation in heatmap.
+				Maximal value of table, that gets a color representation in
+                heatmap.
 				
 	"""
 	ax = ax if ax is not None else plt.gca()
@@ -96,7 +111,8 @@ def Heatmap(table,
 	column_names_reordered = list(table.columns)
 	if(column_clustering):
 		distance_matrix = pdist(table.T, metric=distance_metric)
-		linkage_matrix = linkage(distance_matrix, metric=distance_metric, method=linkage_method)
+		linkage_matrix = linkage(distance_matrix, metric=distance_metric,
+                           method=linkage_method)
 		dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 	
 		leaves = dendrogram_dict["leaves"]
@@ -110,7 +126,8 @@ def Heatmap(table,
 	row_names_reordered = list(table.index)
 	if(row_clustering):
 		distance_matrix = pdist(table, metric=distance_metric)
-		linkage_matrix = linkage(distance_matrix, metric=distance_metric, method=linkage_method)
+		linkage_matrix = linkage(distance_matrix, metric=distance_metric,
+                           method=linkage_method)
 		dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 	
 		leaves = dendrogram_dict["leaves"]
@@ -132,18 +149,21 @@ def Heatmap(table,
 		vmax = symmetry_point + abs_max
 	
 	# Plot heatmap
-	plt.pcolor(table.loc[row_names_reordered, column_names_reordered], vmin=vmin, vmax=vmax, cmap=cmap)
+	plt.pcolor(table.loc[row_names_reordered, column_names_reordered],
+            vmin=vmin, vmax=vmax, cmap=cmap)
 	plt.ylim(0, len(row_names_reordered))
 	plt.xlim(0, len(column_names_reordered))
 	
 	# Plot column/ row labels
 	if(show_column_labels):
-		plt.xticks([ i+.5 for i in range(len(column_names_reordered))], column_names_reordered, rotation=90, fontsize=7)
+		plt.xticks([ i+.5 for i in range(len(column_names_reordered))],
+             column_names_reordered, rotation=90, fontsize=7)
 	else:
 		plt.xticks([], [])
 	if(show_row_labels):
 		ax.yaxis.tick_right()
-		plt.yticks([ i+.5 for i in range(len(row_names_reordered))], row_names_reordered, fontsize=7)
+		plt.yticks([ i+.5 for i in range(len(row_names_reordered))],
+             row_names_reordered, fontsize=7)
 	else:
 		plt.yticks([], [])
 		
@@ -156,8 +176,8 @@ def Dendrogram(table,
 		lw = 1.,
 		ax = None):
 	"""
-		Function that plots a dendrogram on on axis 0 (rows), or axis 1 (columns) of a
-		pandas.DataFrame.
+		Function that plots a dendrogram on on axis 0 (rows), or axis 1
+        (columns) of a pandas.DataFrame.
 
 		args:
 			table: pandas.DataFrame
@@ -166,23 +186,26 @@ def Dendrogram(table,
 			distance_metric: str
 				Distance metric used to determine distance between two vectors.
 				The distance function can be either of 'braycurtis', 'canberra',
-				'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice', 'euclidean',
-				'hamming', 'jaccard', 'jensenshannon', 'kulsinski', 'mahalanobis',
-				'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean',
-				'sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule'.
+				'chebyshev', 'cityblock', 'correlation', 'cosine', 'dice',
+                'euclidean', 'hamming', 'jaccard', 'jensenshannon', 'kulsinski',
+                'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto',
+                'russellrao', 'seuclidean',	'sokalmichener', 'sokalsneath',
+                'sqeuclidean', 'yule'.
 			linkage_method: str
-				methods for calculating the distance between the newly formed cluster u 
-				and each v. Possible methods are, 'single', 'complete', 'average',
-				'weighted', and 'centroid'
+				methods for calculating the distance between the newly formed
+                cluster u and each v. Possible methods are, 'single',
+                'complete', 'average', 'weighted', and 'centroid'
 			axis: int
-				Axis of table used for plotting dendrogram (0 = rows, 1 = columns).
+				Axis of table used for plotting dendrogram (0 = rows,
+                1 = columns).
 			lw: float
 				width of the lines (in points) defining the dengrogram.
 			ax: matplotlib.axes.Axes
 				Axes n which to plot the dendrogram.
 		Returns:
 			dendrogram_dict: dict
-				Resulting dictionary from scipy.cluster.hierarchy.dendrogram function
+				Resulting dictionary from scipy.cluster.hierarchy.dendrogram
+                function.
 			
 	"""
 	ax = ax if ax is not None else plt.gca()
@@ -190,12 +213,15 @@ def Dendrogram(table,
 	dendrogram_dict = None
 	if(axis == 0):
 		distance_matrix = pdist(table, metric=distance_metric)
-		linkage_matrix = linkage(distance_matrix, metric=distance_metric, method=linkage_method)
+		linkage_matrix = linkage(distance_matrix, metric=distance_metric,
+                           method=linkage_method)
 		with plt.rc_context({'lines.linewidth': 1}):
-			dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0, orientation="left")
+			dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0,
+                                orientation="left")
 	elif(axis == 1):
 		distance_matrix = pdist(table.T, metric=distance_metric)
-		linkage_matrix = linkage(distance_matrix, metric=distance_metric, method=linkage_method)
+		linkage_matrix = linkage(distance_matrix, metric=distance_metric,
+                           method=linkage_method)
 		with plt.rc_context({'lines.linewidth': 1}):
 			dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0)
 	
@@ -203,32 +229,35 @@ def Dendrogram(table,
 
 	return dendrogram_dict
 
-def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1, color_list = colors["xkcd"], ax = None):
+def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
+               color_list = colors["xkcd"], ax = None):
 	"""
 		Function that plots annotations.
 
 		args:
 			ids_sorted: list
-				List of ids in the order in which the annotation shall be plotted.
+				List of ids in the order in which the annotation shall be
+                plotted.
 			annotation_df: pandas.DataFrame
-				DataFrame containing grouping informatation for the ids for which
-				the annotation shall be plotted. Columns: groups, rows: ids
+				DataFrame containing grouping informatation for the ids for
+                which the annotation shall be plotted. Columns: groups, rows:
+                ids.
 			annotation_col_id: str
-				the column id of the group in annotation_df, for which the annotation
-				shall be plotted.
+				the column id of the group in annotation_df, for which the
+                annotation mshall be plotted.
 		kwargs:
 			axis: int
-				If 0, then the annotation is plotted vertically, i.e. for rows of a
-				DataFrame. If 1, then the annotation is plotted horizontally, i.e. for
-				columns of a DataFrame.
+				If 0, then the annotation is plotted vertically, i.e. for rows
+                of a DataFrame. If 1, then the annotation is plotted
+                horizontally, i.e. for columns of a DataFrame.
 			color_list: list
 				List of colors used to plot annotations.
 			ax: matplotlib.axes.Axes
 				Axes on which to plot the annotation.
 		Returns:
 			patch_list:
-				List containing representative patches per group, along with the group name
-				and the color representation of the group,
+				List containing one representative patch per group, along with
+                the group name and the color representation of the group,
 	"""
 	ax = ax if ax is not None else plt.gca()
 	
