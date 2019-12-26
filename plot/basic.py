@@ -275,32 +275,46 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     if(axis == 1):
         groups_list = []
         for id_current in ids_sorted:
-            color = groups_color_dict[annotation_df.loc[id_current, annotation_col_id]]
+            color = groups_color_dict[annotation_df.loc[id_current, 
+                                                        annotation_col_id]]
             patch = Rectangle((idx_counter, 0), 1, 1, color=color)
             ax.add_patch(patch)
             idx_counter += 1
             
-            if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
-                patch_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
-                groups_list += [annotation_df.loc[id_current, annotation_col_id]]
+            if(not annotation_df.loc[id_current, annotation_col_id] in 
+               groups_list):
+                patch_list += [[patch, 
+                                annotation_df.loc[id_current, 
+                                                  annotation_col_id], 
+                                color ]]
+                groups_list += [annotation_df.loc[id_current, 
+                                                  annotation_col_id]]
         plt.xlim(0, len(ids_sorted))
         plt.ylim(0, 1)
         ax.yaxis.set_label_position("right")
-        plt.ylabel(annotation_col_id, rotation=0, verticalalignment="center", horizontalalignment="left", fontsize=7)
+        plt.ylabel(annotation_col_id, rotation=0, verticalalignment="center", 
+                   horizontalalignment="left", fontsize=7)
     elif(axis == 0):
         groups_list = []
         for id_current in ids_sorted:
-            color = groups_color_dict[annotation_df.loc[id_current, annotation_col_id]]
+            color = groups_color_dict[annotation_df.loc[id_current, 
+                                                        annotation_col_id]]
             patch = Rectangle((0, idx_counter), 1, 1, color=color)
             ax.add_patch(patch)
             idx_counter += 1
             
-            if(not annotation_df.loc[id_current, annotation_col_id] in groups_list):
-                patch_list += [[ patch, annotation_df.loc[id_current, annotation_col_id], color ]]
-                groups_list += [annotation_df.loc[id_current, annotation_col_id]]
+            if(not annotation_df.loc[id_current, annotation_col_id] in 
+               groups_list):
+                patch_list += [[patch, 
+                                annotation_df.loc[id_current, 
+                                                  annotation_col_id], 
+                                color ]]
+                groups_list += [annotation_df.loc[id_current, 
+                                                  annotation_col_id]]
         plt.ylim(0, len(ids_sorted))
         plt.xlim(0, 1)
-        plt.xlabel(annotation_col_id, rotation=90, verticalalignment="top", horizontalalignment="center", fontsize=7)
+        plt.xlabel(annotation_col_id, rotation=90, verticalalignment="top", 
+                   horizontalalignment="center", fontsize=7)
 
     ax.axes.spines["top"].set_visible(False)
     ax.axes.spines["bottom"].set_visible(False)
@@ -329,11 +343,12 @@ def ColorScale(table,
             cmap: str
                 Colormap used to produce color scale.
             symmetric_color_scale: bool
-                If true, vmin, and vmax will be set to have equal distance from symmetry
-                point
+                If true, vmin, and vmax will be set to have equal distance from 
+                symmetry point.
             symmetry_point: float
-                Only used, when symmetric_color_scale is true. If symmetric_color_scale is
-                true, and symmetry_point is not set, it defaults to zero.
+                Only used, when symmetric_color_scale is true. If 
+                symmetric_color_scale is true, and symmetry_point is not set, 
+                it defaults to zero.
             vmin: float
                 Minimal value of data_table, that has a color representation.
             vmax: float

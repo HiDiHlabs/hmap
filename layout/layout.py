@@ -1,7 +1,8 @@
 from matplotlib.gridspec import GridSpec
 import matplotlib.pyplot as plt
 
-def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom, top, left, right):
+def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom, 
+               top, left, right):
 	'''
 		Function, that makes a grid layout using extensions given in mm.
 
@@ -50,7 +51,8 @@ def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom, to
 	row_widths_frac = [ w/overall_width for w in row_widths ]
 	col_heights_frac = [ h/overall_height for h in col_heights ]
 	average_row_widths_frac = sum(row_widths_frac)/float(len(row_widths_frac))
-	average_col_heights_frac = sum(col_heights_frac)/float(len(col_heights_frac))
+	average_col_heights_frac = (sum(col_heights_frac)/
+                             float(len(col_heights_frac)))
 	average_row_widths = average_row_widths_frac*overall_width
 	average_col_heights = average_col_heights_frac*overall_height
 
