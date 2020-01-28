@@ -293,7 +293,6 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
                               1,
                               color=color,
                              capstyle="butt",
-                             alpha=.4,
                              edgecolor=None,
                              linewidth=0)
             ax.add_patch(patch)
@@ -322,7 +321,6 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
                               1,
                               color=color,
                              capstyle="butt",
-                             alpha=.4,
                              edgecolor=None,
                              linewidth=0)
             ax.add_patch(patch)
@@ -348,8 +346,6 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     plt.xticks([] ,[])
     plt.yticks([] ,[])
 
-    print(ax.get_ylim())
-    print(ax.get_xlim())
     return patch_list
 
 def ColorScale(table,
