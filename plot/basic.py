@@ -423,7 +423,7 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     plt.xticks([] ,[])
     plt.yticks([] ,[])
 
-    return patch_list
+    return [is_categorial, patch_list]
 
 def ColorScale(table,
         cmap="Reds",
@@ -488,3 +488,67 @@ def ColorScale(table,
     plt.yticks([], [])
 
     return vmin, vmax
+
+def Legends(patch_list_dict, annotation_ids = None, ax = None):
+    '''
+        Function that plots Legends based on pathc lists from Annotation
+        function.
+
+        args:
+            patch_list_dict: dict
+                A dictionary, storing patches used for legend plotting. The
+                key is the name of the Annotation, and the value is a list
+                of 2 elements. The first element is a boolean value, defining
+                if the annotation was catgorial (True) or non-categorial
+                (False). The second element is in the case of categorial
+                annotations the patch list, and in the case of non categorial
+                annotations the cmap used, as well as the min and the max
+                values.
+        kwargs:
+            ax: matplotlib.axes.Axes
+                Axes instance on which to plot the legends
+    '''
+    annotation_ids = (annotation_ids if 
+                      annotation_ids is not None else 
+                      patch_list_dict.keys())
+    ax = ax if ax is not None else plt.gca()
+
+    x = 0
+    y = 1
+    x_max = 0
+    for annotation_id in annotation_ids:
+        print(annotation_id)
+        print("x: "+str(x)+"; y: "+str(y))
+
+        patch_list = patch_list_dict[annotation_id][1]
+        legend = ax.legend([p[0] for p in patch_list],
+                           [p[1] for p in patch_list],
+                           title=annotation_id,
+                           title_fontsize=7,
+                           fontsize=6,
+                           loc = "upper left",
+                           bbox_to_anchor=(x, y),
+                           frameon = False)
+        plt.draw()
+        p = legend.get_window_extent().inverse_transformed(ax.transAxes)
+        if(p.p0[1] < 0):
+            legend.remove()
+            y = 1
+            x = x_max
+            legend = ax.legend([p[0] for p in patch_list],
+                           [p[1] for p in patch_list],
+                           title=annotation_id,
+                           title_fontsize=7,
+                           fontsize=6,
+                           loc = "upper left",
+                           bbox_to_anchor=(x, y),
+                           frameon=False)
+            plt.draw()
+            p = legend.get_window_extent().inverse_transformed(ax.transAxes)
+
+        if(p.p1[0] > x_max):
+            x_max = p.p1[0]
+        y = p.p0[1]
+        ax.add_artist(legend)
+        ax.axis("off")
+
