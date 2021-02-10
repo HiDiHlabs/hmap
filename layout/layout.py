@@ -39,7 +39,9 @@ def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom,
     overall_height = float(sum(col_heights)+float(nrows-1)*hspace+bottom+top)
 
 	# Declare figure width overall extensions in inches
-    fig = plt.figure(figsize = (overall_width/25.4, overall_height/25.4))
+    fig = plt.figure(figsize = (overall_width/25.4,
+                                overall_height/25.4),
+                     dpi=300)
 
 	# Define fractions of left, right, bottom and top
     left_frac = left/overall_width

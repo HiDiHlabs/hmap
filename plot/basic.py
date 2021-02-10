@@ -1,5 +1,5 @@
 from scipy.spatial.distance import pdist
-from scipy.cluster.hierarchy import linkage, dendrogram
+from scipy.cluster.hierarchy import linkage, dendrogram, cut_tree
 import numpy as np
 
 import matplotlib.pyplot as plt
@@ -37,6 +37,7 @@ def Heatmap(table,
         vmax = None,
         symmetric_color_scale = False,
         symmetry_point = 0,
+        show_plot = True,
         ax = None):
     """
         Function that plots a two dimensional matrix as clustered heatmap.
@@ -105,14 +106,17 @@ def Heatmap(table,
                 heatmap.
 
     """
-    ax = ax if ax is not None else plt.gca()
+    if(show_plot):
+        ax = ax if ax is not None else plt.gca()
 
     # Sort column names
     column_names_reordered = list(table.columns)
     if(column_clustering):
         distance_matrix = pdist(table.T, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix, metric=distance_metric,
-                           method=linkage_method)
+        linkage_matrix = linkage(distance_matrix, 
+                                 metric=distance_metric,
+                                 method=linkage_method,
+                                 optimal_ordering=True)
         dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
@@ -126,8 +130,10 @@ def Heatmap(table,
     row_names_reordered = list(table.index)
     if(row_clustering):
         distance_matrix = pdist(table, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix, metric=distance_metric,
-                           method=linkage_method)
+        linkage_matrix = linkage(distance_matrix, 
+                                 metric=distance_metric,
+                                 method=linkage_method,
+                                 optimal_ordering=True)
         dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
@@ -149,34 +155,35 @@ def Heatmap(table,
         vmax = symmetry_point + abs_max
 
     # Plot heatmap
-    interpolation_method = "nearest"
-    ncols = len(column_names_reordered)
-    nrows = len(row_names_reordered)
-    if(nrows > 1000):
-        interpolation_method = "bilinear"
-    img = ax.imshow(table.loc[row_names_reordered, column_names_reordered],
-                    vmin=vmin,
-                    vmax=vmax,
-                    cmap=cmap,
-                    aspect="auto",
-                    origin="lower",
-                    interpolation=interpolation_method)
-    plt.ylim(-0.5, nrows-.5)
-    plt.xlim(-0.5, ncols-.5)
-    img.set_rasterized(True)
-
-    # Plot column/ row labels
-    if(show_column_labels):
-        plt.xticks([ i for i in range(len(column_names_reordered))],
-             column_names_reordered, rotation=90, fontsize=7)
-    else:
-        plt.xticks([], [])
-    if(show_row_labels):
-        ax.yaxis.tick_right()
-        plt.yticks([ i+.5 for i in range(len(row_names_reordered))],
-             row_names_reordered, fontsize=7)
-    else:
-        plt.yticks([], [])
+    if(show_plot):
+        interpolation_method = "nearest"
+        ncols = len(column_names_reordered)
+        nrows = len(row_names_reordered)
+    #    if(nrows > 1000):
+    #        interpolation_method = "bilinear"
+        img = ax.imshow(table.loc[row_names_reordered, column_names_reordered],
+                        vmin=vmin,
+                        vmax=vmax,
+                        cmap=cmap,
+                        aspect="auto",
+                        origin="lower",
+                        interpolation=interpolation_method)
+        plt.ylim(-0.5, nrows-.5)
+        plt.xlim(-0.5, ncols-.5)
+        img.set_rasterized(True)
+    
+        # Plot column/ row labels
+        if(show_column_labels):
+            plt.xticks([ i for i in range(len(column_names_reordered))],
+                 column_names_reordered, rotation=90, fontsize=7)
+        else:
+            plt.xticks([], [])
+        if(show_row_labels):
+            ax.yaxis.tick_right()
+            plt.yticks([ i for i in range(len(row_names_reordered))],
+                 row_names_reordered, fontsize=7)
+        else:
+            plt.yticks([], [])
 
     return column_names_reordered, row_names_reordered, vmin, vmax
 
@@ -185,6 +192,7 @@ def Dendrogram(table,
         linkage_method="complete",
         axis = 1,
         lw = 1.,
+        n_clust = None,
         ax = None):
     """
         Function that plots a dendrogram on on axis 0 (rows), or axis 1
@@ -221,27 +229,66 @@ def Dendrogram(table,
     """
     ax = ax if ax is not None else plt.gca()
 
+    ids = None
     dendrogram_dict = None
+    linkage_matrix = None
+    cluster_dict = None
+    color_threshold = 0
     if(axis == 0):
+        ids = list(table.index)
         distance_matrix = pdist(table, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix, metric=distance_metric,
-                           method=linkage_method)
-        with plt.rc_context({'lines.linewidth': 1}):
-            dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0,
-                                orientation="left")
+        linkage_matrix = linkage(distance_matrix, 
+                                 metric=distance_metric,
+                                 method=linkage_method,
+                                 optimal_ordering=True)
+        if(not n_clust is None):
+            cluster_dict = {}
+            color_threshold = linkage_matrix[-1*(n_clust-1), 2]
+            grouping = cut_tree(linkage_matrix, n_clusters = n_clust)
+            for i in range(len(grouping)):
+                group = grouping[i, 0]
+                if(not(group in cluster_dict)):
+                    cluster_dict[group] = [ids[i]]
+                else:
+                    cluster_dict[group] += [ids[i]]
+        with plt.rc_context({'lines.linewidth': lw}):
+            dendrogram_dict = dendrogram(linkage_matrix,
+                                         orientation="left", 
+                                         color_threshold = color_threshold)
     elif(axis == 1):
+        ids = table.columns
         distance_matrix = pdist(table.T, metric=distance_metric)
         linkage_matrix = linkage(distance_matrix, metric=distance_metric,
-                           method=linkage_method)
-        with plt.rc_context({'lines.linewidth': 1}):
-            dendrogram_dict = dendrogram(linkage_matrix, color_threshold=0)
+                                 method=linkage_method,
+                                 optimal_ordering=True)
+        if(not n_clust is None):
+            cluster_dict = {}
+            color_threshold = linkage_matrix[-1*(n_clust-1), 2]
+            grouping = cut_tree(linkage_matrix, n_clusters = n_clust)
+            for i in range(len(grouping)):
+                group = grouping[i, 0]
+                if(not(group in cluster_dict)):
+                    cluster_dict[group] = [ids[i]]
+                else:
+                    cluster_dict[group] += [ids[i]]
 
-    ax.axis("off")
+        with plt.rc_context({'lines.linewidth': lw}):
+            dendrogram_dict = dendrogram(linkage_matrix,
+                                         color_threshold = color_threshold)
 
-    return dendrogram_dict
+    ax.spines["left"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["bottom"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    
+    plt.xticks([], [])
+    plt.yticks([], [])
+
+    return dendrogram_dict, linkage_matrix, cluster_dict
 
 def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
-               color_list = colors["xkcd"], ax = None):
+               color_list = colors["xkcd"], is_categorial=True,
+               cmap = plt.cm.GnBu_r, color_dict = None, ax = None):
     """
         Function that plots annotations.
 
@@ -263,6 +310,12 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
                 horizontally, i.e. for columns of a DataFrame.
             color_list: list
                 List of colors used to plot annotations.
+            is_categorial: boolean
+                Boolean parameter that defines if the colorscale shall be
+                categorial, or continuous (e.g. age).
+            cmap: matplotlib.pyplot.cm
+                ColorMap object, that defines the colormap used for plotting 
+                continuous variables.
             ax: matplotlib.axes.Axes
                 Axes on which to plot the annotation.
         Returns:
@@ -272,22 +325,41 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     """
     ax = ax if ax is not None else plt.gca()
 
+    max_val = None
+    if(not is_categorial):
+        max_val = max(
+            list(annotation_df.loc[ids_sorted, 
+                                   annotation_col_id].replace(np.nan, 0))
+        )
+
     groups = list(set(annotation_df.loc[:, annotation_col_id]))
 
     groups_color_dict = {}
 
-    color_counter = 0
-    for group in groups:
-        groups_color_dict[group] = color_list[color_counter % len(color_list)]
-        color_counter += 1
+    if(not color_dict is None):
+       groups_color_dict = color_dict
+    else:
+        color_counter = 0
+        for group in groups:
+            groups_color_dict[group] = color_list[color_counter % 
+                                                  len(color_list)]
+            color_counter += 1
 
     idx_counter = 0
     patch_list = []
     if(axis == 1):
         groups_list = []
         for id_current in ids_sorted:
-            color = groups_color_dict[annotation_df.loc[id_current,
+            color = None
+            if(is_categorial):
+                color = groups_color_dict[annotation_df.loc[id_current,
                                                         annotation_col_id]]
+            else:
+                value = annotation_df.loc[id_current, annotation_col_id]
+                print(type(value))
+                color = "w"
+                if(not(np.isnan(value))):
+                    color = cmap(float(value)/float(max_val))
             patch = Rectangle((float(idx_counter), 0.),
                               1,
                               1,
@@ -314,8 +386,13 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     elif(axis == 0):
         groups_list = []
         for id_current in ids_sorted:
-            color = groups_color_dict[annotation_df.loc[id_current,
+            color = None
+            if(is_categorial):
+                color = groups_color_dict[annotation_df.loc[id_current,
                                                         annotation_col_id]]
+            else:
+                value = annotation_df.loc[id_current, annotation_col_id]
+                color = cmap(float(value)/float(max_val))
             patch = Rectangle((0., float(idx_counter)),
                               1,
                               1,
@@ -409,3 +486,5 @@ def ColorScale(table,
     ax.xaxis.set_ticks_position('top')
     plt.title("Values", fontsize=7)
     plt.yticks([], [])
+
+    return vmin, vmax
