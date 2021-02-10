@@ -326,8 +326,13 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     ax = ax if ax is not None else plt.gca()
 
     max_val = None
+    min_val = None
     if(not is_categorial):
         max_val = max(
+            list(annotation_df.loc[ids_sorted, 
+                                   annotation_col_id].replace(np.nan, 0))
+        )
+        min_val = min(
             list(annotation_df.loc[ids_sorted, 
                                    annotation_col_id].replace(np.nan, 0))
         )
@@ -359,7 +364,8 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
                 print(type(value))
                 color = "w"
                 if(not(np.isnan(value))):
-                    color = cmap(float(value)/float(max_val))
+                    color = cmap((float(value)-min_val)/
+                                 (float(max_val)-min_val))
             patch = Rectangle((float(idx_counter), 0.),
                               1,
                               1,
@@ -392,7 +398,7 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
                                                         annotation_col_id]]
             else:
                 value = annotation_df.loc[id_current, annotation_col_id]
-                color = cmap(float(value)/float(max_val))
+                color = cmap((float(value)-min_val)/(float(max_val)-min_val))
             patch = Rectangle((0., float(idx_counter)),
                               1,
                               1,
@@ -422,6 +428,9 @@ def Annotation(ids_sorted, annotation_df, annotation_col_id, axis = 1,
     ax.axes.spines["right"].set_visible(False)
     plt.xticks([] ,[])
     plt.yticks([] ,[])
+
+    if(not is_categorial):
+        patch_list = [cmap, min_val, max_val]
 
     return [is_categorial, patch_list]
 
@@ -513,42 +522,101 @@ def Legends(patch_list_dict, annotation_ids = None, ax = None):
                       patch_list_dict.keys())
     ax = ax if ax is not None else plt.gca()
 
+    plt.xlim([0, 1.])
+    plt.ylim([0, 1.])
+
     x = 0
     y = 1
     x_max = 0
-    for annotation_id in annotation_ids:
-        print(annotation_id)
-        print("x: "+str(x)+"; y: "+str(y))
 
-        patch_list = patch_list_dict[annotation_id][1]
-        legend = ax.legend([p[0] for p in patch_list],
-                           [p[1] for p in patch_list],
-                           title=annotation_id,
-                           title_fontsize=7,
-                           fontsize=6,
-                           loc = "upper left",
-                           bbox_to_anchor=(x, y),
-                           frameon = False)
-        plt.draw()
-        p = legend.get_window_extent().inverse_transformed(ax.transAxes)
-        if(p.p0[1] < 0):
-            legend.remove()
-            y = 1
-            x = x_max
+    # Get width and height of figure
+    fig = plt.gcf()
+    box = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    width, height = box.width*25.4, box.height*25.4
+
+    # calculate width and height of colorscales as ratios of axis width, and
+    # height
+    color_scale_height = 5.*(1./height)
+    color_scale_width = 20.*(1./width)
+
+    for annotation_id in annotation_ids:
+        # If annotation data is categorial
+        if(patch_list_dict[annotation_id][0]):
+            patch_list = patch_list_dict[annotation_id][1]
             legend = ax.legend([p[0] for p in patch_list],
-                           [p[1] for p in patch_list],
-                           title=annotation_id,
-                           title_fontsize=7,
-                           fontsize=6,
-                           loc = "upper left",
-                           bbox_to_anchor=(x, y),
-                           frameon=False)
+                               [p[1] for p in patch_list],
+                               title=annotation_id,
+                               title_fontsize=7,
+                               fontsize=6,
+                               loc = "upper left",
+                               bbox_to_anchor=(x, y),
+                               frameon = False)
             plt.draw()
             p = legend.get_window_extent().inverse_transformed(ax.transAxes)
+            if(p.p0[1] < 0):
+                legend.remove()
+                y = 1
+                x = x_max
+                legend = ax.legend([p[0] for p in patch_list],
+                               [p[1] for p in patch_list],
+                               title=annotation_id,
+                               title_fontsize=7,
+                               fontsize=6,
+                               loc = "upper left",
+                               bbox_to_anchor=(x, y),
+                               frameon=False)
+                plt.draw()
+                p = legend.get_window_extent().inverse_transformed(ax.transAxes)
 
-        if(p.p1[0] > x_max):
-            x_max = p.p1[0]
-        y = p.p0[1]
-        ax.add_artist(legend)
-        ax.axis("off")
+            if(p.p1[0] > x_max):
+                x_max = p.p1[0]+2.*(1./width)
+            y = p.p0[1]
+            ax.add_artist(legend)
+            ax.axis("off")
+        else:
+            patch_list = patch_list_dict[annotation_id][1]
+            img = ax.imshow([[0, 1], [0, 1]], 
+                        cmap = patch_list[0], 
+                        interpolation = 'bicubic',
+                        extent=[x, x+color_scale_width, y, y-color_scale_height],
+                        vmin=0
+                      )
+            p = img.get_window_extent().inverse_transformed(ax.transAxes)
+            if(p.y1-6.*(1./height) <= 0):
+                img.remove()
+                y = 1.-4.*(1./height)
+                x = x_max
+                img = ax.imshow([[0, 1], [0, 1]], 
+                        cmap = patch_list[0], 
+                        interpolation = 'bicubic',
+                        extent=[x, x+color_scale_width, y, y-color_scale_height],
+                        vmin=0
+                      )
+                p = img.get_window_extent().inverse_transformed(ax.transAxes)
 
+            # Plot annotation ID
+            plt.text(x+color_scale_width/2.,
+                     y,
+                     annotation_id,
+                     fontsize=7,
+                     verticalalignment="bottom",
+                     horizontalalignment="center")
+            plt.text(x, 
+                     y-((.6)*(1./height)+color_scale_height), 
+                     str(round(patch_list[1], 3)),
+                     verticalalignment="top",
+                     horizontalalignment="left",
+                     fontsize=6)
+            plt.text(x+color_scale_width, 
+                     y-((.6)*(1./height)+color_scale_height), 
+                     str(round(patch_list[2], 3)),
+                     verticalalignment="top",
+                     horizontalalignment="right",
+                     fontsize=6)
+
+            if(p.x1 > x_max):
+                x_max = p.x1+2.*(1./width)
+            y = p.y1-6.*(1./height)
+            #y = p.y1-2.*(1./height)
+            ax.set_aspect('auto')
+            ax.axis("off")
