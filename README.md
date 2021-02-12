@@ -4,4 +4,3 @@
 
 This package implements a convenient heatmap plotting package in python.
 
-Some bla
