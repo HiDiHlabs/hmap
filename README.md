@@ -1,3 +1,3 @@
-# Python Heatmap Package
+# hmap: Python Heatmap Package
 
-This project is about the implementation of a convenient heatmap plotting package in python.
+This package implements of a convenient heatmap plotting package in python.
