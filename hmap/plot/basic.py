@@ -38,6 +38,8 @@ def Heatmap(table,
         symmetric_color_scale = False,
         symmetry_point = 0,
         show_plot = True,
+        optimal_row_ordering = True,
+        optimal_col_ordering = True,
         ax = None):
     """
         Function that plots a two dimensional matrix as clustered heatmap.
@@ -89,6 +91,14 @@ def Heatmap(table,
                 Only used, when symmetric_color_scale is true. If
                 symmetric_color_scale is true, and symmetry_point is not set,
                 it defaults to zero.
+            optimal_row_ordering: boolean
+                If True, the rows will be ordered optimally with regards to
+                the cluster separation. Be careuful: Can take a long time,
+                depending on the number of rows.
+            optimal_col_ordering: boolean
+                If True, the columns will be ordered optimally with regards to
+                the cluster separation. Be careuful: Can take a long time,
+                depending on the number of columns.
             ax: matplotlib.axes.Axes
                 Axes instance on which to plot heatmap.
         Returns: tuple
@@ -116,7 +126,7 @@ def Heatmap(table,
         linkage_matrix = linkage(distance_matrix, 
                                  metric=distance_metric,
                                  method=linkage_method,
-                                 optimal_ordering=True)
+                                 optimal_ordering=optimal_col_ordering)
         dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
@@ -133,7 +143,7 @@ def Heatmap(table,
         linkage_matrix = linkage(distance_matrix, 
                                  metric=distance_metric,
                                  method=linkage_method,
-                                 optimal_ordering=True)
+                                 optimal_ordering=optimal_row_ordering)
         dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
@@ -193,6 +203,8 @@ def Dendrogram(table,
         axis = 1,
         lw = 1.,
         n_clust = None,
+        optimal_row_ordering=True,
+        optimal_col_ordering=True,
         ax = None):
     """
         Function that plots a dendrogram on on axis 0 (rows), or axis 1
@@ -219,6 +231,14 @@ def Dendrogram(table,
                 1 = columns).
             lw: float
                 width of the lines (in points) defining the dengrogram.
+            optimal_row_ordering: boolean
+                If True, the rows will be ordered optimally with regards to
+                the cluster separation. Be careuful: Can take a long time,
+                depending on the number of rows.
+            optimal_col_ordering: boolean
+                If True, the columns will be ordered optimally with regards to
+                the cluster separation. Be careuful: Can take a long time,
+                depending on the number of columns.
             ax: matplotlib.axes.Axes
                 Axes n which to plot the dendrogram.
         Returns:
@@ -240,7 +260,7 @@ def Dendrogram(table,
         linkage_matrix = linkage(distance_matrix, 
                                  metric=distance_metric,
                                  method=linkage_method,
-                                 optimal_ordering=True)
+                                 optimal_ordering=optimal_row_ordering)
         if(not n_clust is None):
             cluster_dict = {}
             color_threshold = linkage_matrix[-1*(n_clust-1), 2]
@@ -260,7 +280,7 @@ def Dendrogram(table,
         distance_matrix = pdist(table.T, metric=distance_metric)
         linkage_matrix = linkage(distance_matrix, metric=distance_metric,
                                  method=linkage_method,
-                                 optimal_ordering=True)
+                                 optimal_ordering=optimal_col_ordering)
         if(not n_clust is None):
             cluster_dict = {}
             color_threshold = linkage_matrix[-1*(n_clust-1), 2]
