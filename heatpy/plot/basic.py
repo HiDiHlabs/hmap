@@ -617,6 +617,5 @@ def Legends(patch_list_dict, annotation_ids = None, ax = None):
             if(p.x1 > x_max):
                 x_max = p.x1+2.*(1./width)
             y = p.y1-6.*(1./height)
-            #y = p.y1-2.*(1./height)
             ax.set_aspect('auto')
             ax.axis("off")
