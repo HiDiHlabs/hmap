@@ -20,7 +20,7 @@ This package implements a convenient heatmap plotting package in python. It offe
 ![Grouped Clustered Heatmap](jupyter_notebooks/pics/grouped_clustered_heatmap.jpeg)
 
 ## Figure layout
-The hmap package comes with a module for defining the layout of a figure using absolute length measurements. Currently the only unit supported is mkilimeters. The layout of a figure is defined as a grid. You have to specify 
+The hmap package comes with a module for defining the layout of a figure using absolute length measurements. Currently the only unit supported is milimeters. The layout of a figure is defined as a grid. You have to specify 
 - the number of rows, 
 - the number of columns, 
 - the widths of the columns,
