@@ -48,7 +48,7 @@ for row_idx in range(4):
                        verticalalignment="center")
 ```
 
-[Figure layout](jupyter_notebooks/pics/figure_layout.jpeg)
+![Figure layout](jupyter_notebooks/pics/figure_layout.jpeg)
 
 # Installation
 ```bash
