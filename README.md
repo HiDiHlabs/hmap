@@ -19,6 +19,37 @@ This package implements a convenient heatmap plotting package in python. It offe
 
 ![Grouped Clustered Heatmap](jupyter_notebooks/pics/grouped_clustered_heatmap.jpeg)
 
+## Figure layout
+
+```python
+import sys
+import hmap
+import matplotlib.pyplot as plt
+
+fig, gs = hmap.layout.layout.layoutGrid(4, 5, [10., 2., 40., 40., 40], [10., 2., 40., 40.], 1., 1., 20., 15., 15., 20.)
+col_widths = ["10 mm", "2 mm", "40 mm", "40 mm", "40 mm"]
+row_heights = ["10 mm", "2 mm", "40 mm", "40 mm"]
+
+for row_idx in range(4):
+    for col_idx in range(5):
+        ax = plt.subplot(gs[row_idx, col_idx])
+        plt.xticks([], [])
+        plt.yticks([], [])
+        if(row_idx == 0):
+            ax.xaxis.set_label_position("top")
+            plt.xlabel(col_widths[col_idx], 
+                       fontsize=7, 
+                       rotation=90)
+        if(col_idx == 0):
+            plt.ylabel(row_heights[row_idx], 
+                       fontsize=7, 
+                       rotation=0, 
+                       horizontalalignment="right",
+                       verticalalignment="center")
+```
+
+[Figure layout](jupyter_notebooks/pics/figure_layout.jpeg)
+
 # Installation
 ```bash
 pip install hmap
