@@ -2,7 +2,18 @@
 
 # hmap: Python Heatmap Package
 
-This package implements a convenient heatmap plotting package in python.
+This package implements a convenient heatmap plotting package in python. It offers low level functions for
+
+1. Plotting
+	- Heatmaps
+	- Dendrograms
+	- Annotations
+	- Legends
+2. Figure layouting
+
+![Clustered Heatmap](/jupyter_notebooks/clustered_heatmap.jpeg)
+
+![Grouped Clustered Heatmap](/jupyter_notebooks/grouped_clustered_heatmap.jpeg)
 
 # Installation
 ```bash
