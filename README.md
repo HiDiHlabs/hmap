@@ -11,7 +11,11 @@ This package implements a convenient heatmap plotting package in python. It offe
 	- Legends
 2. Figure layouting
 
+## Clustered heatmap
+
 ![Clustered Heatmap](jupyter_notebooks/pics/clustered_heatmap.jpeg)
+
+## Grouped clustered heatmap
 
 ![Grouped Clustered Heatmap](jupyter_notebooks/pics/grouped_clustered_heatmap.jpeg)
 
