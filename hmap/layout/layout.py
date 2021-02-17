@@ -3,36 +3,33 @@ import matplotlib.pyplot as plt
 
 def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom,
                top, left, right):
-    '''
-		Function, that makes a grid layout using extensions given in mm.
+    '''Function, that makes a grid layout using extensions given in mm.
 
-		args:
-			nrows: int
-				Number of rows in the grid.
-			ncols: int
-				Number of columns in the grid.
-			row_withs: list<float>
-				Widths of rows in mm.
-			col_heights: list<float>
-				Heights of columns in mm.
-			hspace: float
-				Height space between cells in mm.
-			wspace: float
-				Width space between cells in mm.
-			bottom: float
-				Bottom space of grid in mm.
-			top: float
-				Top space of grid in mm.
-			left: float
-				Left space of grid in mm.
-			right: float
-				Right space of grid in mm.
+	:param nrows: Number of rows in the grid.
+    :type nrows: int
+    :param ncols: Number of columns in the grid.
+    :type ncols: int
+    :param row_withs: list of row widths in mm, as type float.
+    :type row_widths: list
+	:param col_heights: list of column heights in mm, as type floar
+    :type col_heights: list
+    :param hspace: Height space between cells in mm.
+    :type hspace: float
+    :param wspace: Width space between cells in mm.
+    :type wspace: float
+    :param bottom: Bottom space of grid in mm.
+    :type bottom: float
+    :param top: Top space of grid in mm.
+    :type top: float
+    :param left: Left space of grid in mm.
+    :type left: float
+    :param right: Right space of grid in mm.
+    :type right: float
 
-		Returns: tuple
-			fig: matplotlib.pyplot.Figure
-				Figure on which the grid is defined.
-			gs: matplotlib.gridspec.GridSpec
-				Layouted grid.
+    :return: A tuple of type :class:`matplotlib.figure.Figure`, defining the
+        figure on which the grid is defined, and 
+        :class:`matplotlib.gridspec.GridSpec`, defining the grid.
+    :rtype: tuple
     '''
 	# Define overall extensions of figure in mm
     overall_width = float(sum(row_widths)+float(ncols-1)*wspace+left+right)
