@@ -41,8 +41,8 @@ def Heatmap(table,
         optimal_row_ordering = True,
         optimal_col_ordering = True,
         ax = None):
-    '''Function that plots a two dimensional matrix as clustered heatmap.
-        Sorting of rows and columns is done by hierarchical clustering.
+    """Function that plots a two dimensional matrix as clustered heatmap.
+    Sorting of rows and columns is done by hierarchical clustering.
 
     :param table: Two dimensional array containing numerical values to be
         clustered.
@@ -121,7 +121,7 @@ def Heatmap(table,
         4. vmax: Maximal value of table, that gets a color representation in
         heatmap.
     :rtype: tuple
-    '''
+    """
     if(show_plot):
         ax = ax if ax is not None else plt.gca()
 
@@ -212,8 +212,8 @@ def Dendrogram(table,
         optimal_row_ordering=True,
         optimal_col_ordering=True,
         ax = None):
-    '''Function that plots a dendrogram on axis 0 (rows), or axis 1
-        (columns) of a :class:`pandas.DataFrame`.
+    """Function that plots a dendrogram on axis 0 (rows), or axis 1
+    (columns) of a :class:`pandas.DataFrame`.
 
     :param table: Data matrix used to calculate dendrograms.
     :type table: :class:`pandas.DataFrame`
@@ -255,12 +255,12 @@ def Dendrogram(table,
         1. Resulting dictionary from scipy.cluster.hierarchy.dendrogram
         function.
         2. linkager matrix, that is returned from
-            scipy.cluster.hierarchy.linkage function
+        scipy.cluster.hierarchy.linkage function
         3. dictionary containing the row_ids, (in case of axis = 0), or
-            column_ids (in case of axis = 1) that are assigned to different
-            clusters. Only makes sense if n_clust is not None.
+        column_ids (in case of axis = 1) that are assigned to different
+        clusters. Only makes sense if n_clust is not None.
     :rtype: dict
-    '''
+    """
     ax = ax if ax is not None else plt.gca()
 
     ids = None
@@ -329,7 +329,7 @@ def Annotation(ids_sorted,
                cmap = plt.cm.GnBu_r,
                color_dict = None,
                ax = None):
-    '''Function that plots annotations.
+    """Function that plots annotations.
 
     :param ids_sorted: List of ids in the order in which the annotation shall be
         plotted.
@@ -353,7 +353,7 @@ def Annotation(ids_sorted,
     :type is_categorial: bool, optional
     :param cmap: ColorMap object, that defines the colormap used for plotting
         continuous variables, defaults to plt.cm.GnBu_r.
-        :type cmap: :class:`matplotlib.colors.LinearSegmentedColormap`, optional
+    :type cmap: :class:`matplotlib.colors.LinearSegmentedColormap`, optional
     :param ax: Axes on which to plot the annotation, defaults to None.
     :type ax: class:`matplotlib.axes._subplots.AxesSubplot`
 
@@ -366,7 +366,7 @@ def Annotation(ids_sorted,
         :class:`matplotlib.colors.LinearSegmentedColormap` object, the min, and
         the max value from the floating value annotations.
     :rtype: tuple
-    '''
+    """
     ax = ax if ax is not None else plt.gca()
 
     max_val = None
@@ -485,7 +485,7 @@ def ColorScale(table,
         vmin = None,
         vmax = None,
         ax = None):
-    '''Function that plots the color scale of values inside a dataframe.
+    """Function that plots the color scale of values inside a dataframe.
 
     :param table: Table containing numerical values.
     :type table: :class:`pandas.DataFrame`
@@ -509,7 +509,7 @@ def ColorScale(table,
 
     :returns: Min. and max value displayed on color scale
     :rtype: tuple
-    '''
+    """
     ax = ax if ax is not None else plt.gca()
 
     # Calculate min and max value from table
@@ -541,8 +541,8 @@ def ColorScale(table,
     return vmin, vmax
 
 def Legends(patch_list_dict, annotation_ids = None, ax = None):
-    '''Function that plots Legends based on pathc lists from Annotation
-        function.
+    """Function that plots Legends based on pathc lists from Annotation
+    function.
 
     :param patch_list_dict: A dictionary, storing patches used for legend
         plotting. The key is the name of the Annotation, and the value is a list
@@ -561,7 +561,7 @@ def Legends(patch_list_dict, annotation_ids = None, ax = None):
 
     :return: Nothing to be returned.
     :rtype: None
-    '''
+    """
     annotation_ids = (annotation_ids if
                       annotation_ids is not None else
                       patch_list_dict.keys())

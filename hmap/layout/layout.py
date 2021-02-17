@@ -5,7 +5,7 @@ def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom,
                top, left, right):
     '''Function, that makes a grid layout using extensions given in mm.
 
-	:param nrows: Number of rows in the grid.
+    :param nrows: Number of rows in the grid.
     :type nrows: int
     :param ncols: Number of columns in the grid.
     :type ncols: int
@@ -30,6 +30,7 @@ def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom,
         figure on which the grid is defined, and 
         :class:`matplotlib.gridspec.GridSpec`, defining the grid.
     :rtype: tuple
+
     '''
 	# Define overall extensions of figure in mm
     overall_width = float(sum(row_widths)+float(ncols-1)*wspace+left+right)
