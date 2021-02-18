@@ -22,7 +22,7 @@ copyright = '2021, Matthias Bieg'
 author = 'Matthias Bieg'
 
 # The full version, including alpha/beta/rc tags
-release = '0.9'
+release = '0.9.1'
 
 
 # -- General configuration ---------------------------------------------------

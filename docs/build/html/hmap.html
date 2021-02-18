@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Documentation &mdash; hmap 0.9.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example" href="example.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> hmap
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-hmap-plot-plot-subpackage">The <code class="docutils literal notranslate"><span class="pre">hmap.plot</span></code> plot subpackage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-hmap.plot.basic">The <code class="docutils literal notranslate"><span class="pre">hmap.plot.basic</span></code> module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#the-hmap-layout-subpackage">The <code class="docutils literal notranslate"><span class="pre">hmap.layout</span></code> subpackage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-hmap.layout.layout">The <code class="docutils literal notranslate"><span class="pre">hmap.layout.layout</span></code> module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hmap</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/hmap.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-hmap-plot-plot-subpackage">
+<h2>The <code class="docutils literal notranslate"><span class="pre">hmap.plot</span></code> plot subpackage<a class="headerlink" href="#the-hmap-plot-plot-subpackage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hmap.plot.basic">
+<span id="the-hmap-plot-basic-module"></span><h3>The <code class="docutils literal notranslate"><span class="pre">hmap.plot.basic</span></code> module<a class="headerlink" href="#module-hmap.plot.basic" title="Permalink to this headline">¶</a></h3>
+<p>This class offers basic plot Functions for generating nice heatmaps.</p>
+<dl class="py function">
+<dt id="hmap.plot.basic.Annotation">
+<code class="sig-prename descclassname"><span class="pre">hmap.plot.basic.</span></code><code class="sig-name descname"><span class="pre">Annotation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">ids_sorted,</span> <span class="pre">annotation_df,</span> <span class="pre">annotation_col_id,</span> <span class="pre">axis=1,</span> <span class="pre">color_list=['#812b9c',</span> <span class="pre">'#d0a6fd',</span> <span class="pre">'#00ad1f',</span> <span class="pre">'#c27ef6',</span> <span class="pre">'#8cf67d',</span> <span class="pre">'#004fdf',</span> <span class="pre">'#29f9a2',</span> <span class="pre">'#6bbefd',</span> <span class="pre">'#ff84bf',</span> <span class="pre">'#0020aa',</span> <span class="pre">'#8d89fe',</span> <span class="pre">'#683600',</span> <span class="pre">'#d4b06f',</span> <span class="pre">'#ffd2df',</span> <span class="pre">'#b08050',</span> <span class="pre">'#ed0400',</span> <span class="pre">'#ff7200',</span> <span class="pre">'#c81477',</span> <span class="pre">'#690220',</span> <span class="pre">'#fffb19',</span> <span class="pre">'#d1b003',</span> <span class="pre">'#000000'],</span> <span class="pre">is_categorial=True,</span> <span class="pre">cmap=&lt;matplotlib.colors.LinearSegmentedColormap</span> <span class="pre">object&gt;,</span> <span class="pre">color_dict=None,</span> <span class="pre">ax=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.plot.basic.Annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that plots annotations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ids_sorted</strong> (<em>list</em>) – List of ids in the order in which the annotation shall be
+plotted.</p></li>
+<li><p><strong>annotation_df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – DataFrame containing grouping informatation for the
+ids for which the annotation shall be plotted. Columns: groups, rows:
+ids.</p></li>
+<li><p><strong>annotation_col_id</strong> (<em>str</em>) – Column id of the group in annotation_df, for which
+the annotation mshall be plotted.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – If 0, then the annotation is plotted vertically, i.e. for rows
+of a DataFrame. If 1, then the annotation is plotted horizontally, i.e.
+for columns of a DataFrame, defaults to 1</p></li>
+<li><p><strong>color_list</strong> (<em>list</em><em>, </em><em>optional</em>) – List of colors used to plot annotations, defaults to
+colors[“xkcd”].</p></li>
+<li><p><strong>is_categorial</strong> (<em>bool</em><em>, </em><em>optional</em>) – Boolean parameter that defines if the colorscale shall
+be categorial, or continuous (e.g. age), defaults to True</p></li>
+<li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.colors.LinearSegmentedColormap</span></code>, optional) – ColorMap object, that defines the colormap used for plotting
+continuous variables, defaults to plt.cm.GnBu_r.</p></li>
+<li><p><strong>color_dict</strong> (<em>dict</em><em>, </em><em>optional</em>) – If is_categorial is True you can define colors for each
+category. These colors have to be given as a dict, where the key is the
+category and the value is the color code, defaults to None.</p></li>
+<li><p><strong>ax</strong> (class:<cite>matplotlib.axes._subplots.AxesSubplot</cite>, optional) – Axes on which to plot the annotation, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple containing the following two elements:
+1. True, if the annotation was categorial, False otherwise.
+2. If the first element is True, then it is a list containing one
+representative patch per group, along with the group name and the color
+representation of the group. If the first element is False, then it is
+a list, containing the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.colors.LinearSegmentedColormap</span></code> object, the min, and
+the max value from the floating value annotations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hmap.plot.basic.ColorScale">
+<code class="sig-prename descclassname"><span class="pre">hmap.plot.basic.</span></code><code class="sig-name descname"><span class="pre">ColorScale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Reds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetric_color_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.plot.basic.ColorScale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that plots the color scale of values inside a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Table containing numerical values.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap used to produce color scale, defaults to “Reds”.</p></li>
+<li><p><strong>symmetric_color_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, vmin, and vmax will be set to have
+equal distance from symmetry point, defaults to True.</p></li>
+<li><p><strong>symmetry_point</strong> (<em>float</em><em>, </em><em>optional</em>) – Only used, when symmetric_color_scale is true. If
+symmetric_color_scale is true, and symmetry_point is not set, defaults
+to zero.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimal value of data_table, that has a color representation,
+defaults to None.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximal value of data_table, that has a color representation,
+defaults to None.</p></li>
+<li><p><strong>ax</strong> (class:<cite>matplotlib.axes._subplots.AxesSubplot</cite>, optional) – Axes instance on which to plot the color scale, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Min. and max value displayed on color scale</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hmap.plot.basic.Dendrogram">
+<code class="sig-prename descclassname"><span class="pre">hmap.plot.basic.</span></code><code class="sig-name descname"><span class="pre">Dendrogram</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkage_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'complete'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_row_ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_col_ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.plot.basic.Dendrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that plots a dendrogram on axis 0 (rows), or axis 1
+(columns) of a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Data matrix used to calculate dendrograms.</p></li>
+<li><p><strong>distance_metric</strong> (<em>str</em><em>, </em><em>optional</em>) – Distance metric used to determine distance between
+two vectors. The distance function can be either of ‘braycurtis’,
+‘canberra’, ‘chebyshev’, ‘cityblock’, ‘correlation’, ‘cosine’, ‘dice’,
+‘euclidean’, ‘hamming’, ‘jaccard’, ‘jensenshannon’, ‘kulsinski’,
+‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, 
+‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’,
+defaults to ‘correlation’.</p></li>
+<li><p><strong>linkage_method</strong> (<em>str</em><em>, </em><em>optional</em>) – Methods for calculating the distance between the
+newly formed cluster u and each v. Possible methods are, ‘single’,
+‘complete’, ‘average’, ‘weighted’, and ‘centroid’, defaults to
+‘complete’.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – Axis of table used for plotting dendrogram (0 = rows,
+1 = columns), defaults to 1.</p></li>
+<li><p><strong>lw</strong> (<em>float</em><em>, </em><em>optional</em>) – Width of the lines (in points) defining the dengrogram, defaults
+to 1.</p></li>
+<li><p><strong>n_clust</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of clusters in which the dendrogram should be cut.
+Note: Dendrogram cutting makes use of scipy.cluster.hierarchy.cut_tree
+function, defaults to None.</p></li>
+<li><p><strong>optimal_row_ordering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the rows will be ordered optimally
+with regards to the cluster separation. Be careuful: Can take a long
+time, depending on the number of rows, defaults to True.</p></li>
+<li><p><strong>optimal_col_ordering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the columns will be ordered optimally 
+with regards to the cluster separation. Be careuful: Can take a long
+time, depending on the number of columns, defaults to True.</p></li>
+<li><p><strong>ax</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes._subplots.AxesSubplot</span></code>) – Axes n which to plot the dendrogram, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple containing the following entries:
+1. Resulting dictionary from scipy.cluster.hierarchy.dendrogram
+function.
+2. linkage matrix, that is returned from
+scipy.cluster.hierarchy.linkage function
+3. dictionary containing the row_ids, (in case of axis = 0), or
+column_ids (in case of axis = 1) that are assigned to different
+clusters. Only makes sense if n_clust is not None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hmap.plot.basic.Heatmap">
+<code class="sig-prename descclassname"><span class="pre">hmap.plot.basic.</span></code><code class="sig-name descname"><span class="pre">Heatmap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Reds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'correlation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkage_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'complete'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_column_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_row_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_row_clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_column_clustering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetric_color_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_point</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_row_ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_col_ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.plot.basic.Heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that plots a two dimensional matrix as clustered heatmap.
+Sorting of rows and columns is done by hierarchical clustering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> (Object of type <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>) – Two dimensional array containing numerical values to be
+clustered.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap used to produce color scale, defaults to “Reds”.</p></li>
+<li><p><strong>distance_metric</strong> (<em>str</em><em>, </em><em>optional</em>) – Distance metric used to determine distance
+between two vectors.The distance function can be either of
+‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘cityblock’, ‘correlation’,
+‘cosine’, ‘dice’, ‘euclidean’, ‘hamming’, ‘jaccard’,
+‘jensenshannon’, ‘kulsinski’, ‘mahalanobis’, ‘matching’,
+‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’,
+‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’, defaults to
+‘correlation’.</p></li>
+<li><p><strong>linkage_method</strong> (<em>str</em><em>, </em><em>optional</em>) – methods for calculating the distance between the
+newly formed cluster u and each v. Possible methods are, ‘single’,
+‘complete’, ‘average’, ‘weighted’, and ‘centroid’, defaults to
+‘complete’.</p></li>
+<li><p><strong>show_column_labels</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, show labels of columns, as defined
+in table, defaults to False.</p></li>
+<li><p><strong>show_row_labels</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, show labels of rows, as defined in
+table, defaults to False.</p></li>
+<li><p><strong>row_clustering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, the rows a clustered according to
+distance_metric, and linkage_method, defaults to True.</p></li>
+<li><p><strong>column_clustering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, the columns are clustered according
+to distance_metric, and linkage_method, defaults to True.</p></li>
+<li><p><strong>custom_row_clustering</strong> (<em>list</em><em>, </em><em>optional</em>) – List of Row ids from table in the order
+they should appear in the heatmap. Only applies if row_clustering is
+False, defaults to None.</p></li>
+<li><p><strong>custom_column_clustering</strong> (<em>list</em><em>, </em><em>optional</em>) – List of column ids from table in the
+order they should appear in the heatmap. Only applies if
+column_clustering is False, defaults to None.</p></li>
+<li><p><strong>vmin</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimal value of data_table, that has a color
+representation, defaults to None.</p></li>
+<li><p><strong>vmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximal value of data_table, that has a color
+representation, defaults to None.</p></li>
+<li><p><strong>symmetric_color_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, vmin, and vmax will be set to
+have equal distance from symmetry point, defaults to False.</p></li>
+<li><p><strong>symmetry_point</strong> (<em>float</em><em>, </em><em>optional</em>) – Only used, when symmetric_color_scale is true. If
+symmetric_color_scale is true, and symmetry_point is not set,
+defaults to zero.</p></li>
+<li><p><strong>show_plot</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the heatmap will be shown on the given axis,
+else the function only returns the return values, defaults to True.</p></li>
+<li><p><strong>optimal_row_ordering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the rows will be ordered optimally
+with regards to the cluster separation. Be careuful: Can take a
+long time, depending on the number of rows, defaults to True.</p></li>
+<li><p><strong>optimal_col_ordering</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the columns will be ordered
+optimally with regards to the cluster separation. Be careuful:
+Can take a long time, depending on the number of columns, defaults
+to True.</p></li>
+<li><p><strong>ax</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.axes._subplots.AxesSubplot</span></code>,
+optional) – Axes instance on which to plot heatmap, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Tuple containing: 1. column_names_reordered: List of
+column names after reordering as given as column names of table.
+2. row_names_reordered: List of row names after reordering as given
+as index names of table.
+3. vmin: Minimal value of table, that gets a color representation in
+heatmap.
+4. vmax: Maximal value of table, that gets a color representation in
+heatmap.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hmap.plot.basic.Legends">
+<code class="sig-prename descclassname"><span class="pre">hmap.plot.basic.</span></code><code class="sig-name descname"><span class="pre">Legends</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patch_list_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.plot.basic.Legends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that plots Legends based on pathc lists from Annotation
+function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patch_list_dict</strong> (<em>dict</em>) – A dictionary, storing patches used for legend
+plotting. The key is the name of the Annotation, and the value is a list
+of 2 elements. The first element is a boolean value, defining if the
+annotation was catgorial (True) or non-categorial (False). The second
+element is in the case of categorial annotations the patch list, and in
+the case of non categorial annotations the cmap used, as well as the min
+and the max values.</p></li>
+<li><p><strong>annotation_ids</strong> (<em>list</em><em>, </em><em>optional</em>) – List of annotation ids, for which the Legend shall
+be plotted. Legends will be plotted in the same order as given in
+annotation_ids list, defaults to None.</p></li>
+<li><p><strong>ax</strong> (class:<cite>matplotlib.axes._subplots.AxesSubplot</cite>, optional) – Axes instance on which to plot the legends, defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing to be returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="the-hmap-layout-subpackage">
+<h2>The <code class="docutils literal notranslate"><span class="pre">hmap.layout</span></code> subpackage<a class="headerlink" href="#the-hmap-layout-subpackage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-hmap.layout.layout">
+<span id="the-hmap-layout-layout-module"></span><h3>The <code class="docutils literal notranslate"><span class="pre">hmap.layout.layout</span></code> module<a class="headerlink" href="#module-hmap.layout.layout" title="Permalink to this headline">¶</a></h3>
+<p>This module offers functions for creating nice and clean figure layouts.</p>
+<dl class="py function">
+<dt id="hmap.layout.layout.layoutGrid">
+<code class="sig-prename descclassname"><span class="pre">hmap.layout.layout.</span></code><code class="sig-name descname"><span class="pre">layoutGrid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nrows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_widths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_heights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hmap.layout.layout.layoutGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function, that makes a grid layout using extensions given in mm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nrows</strong> (<em>int</em>) – Number of rows in the grid.</p></li>
+<li><p><strong>ncols</strong> (<em>int</em>) – Number of columns in the grid.</p></li>
+<li><p><strong>row_widths</strong> (<em>list
+:param col_heights: list of column heights in mm</em><em>, </em><em>as type floar</em>) – list of row widths in mm, as type float.</p></li>
+<li><p><strong>hspace</strong> (<em>float</em>) – Height space between cells in mm.</p></li>
+<li><p><strong>wspace</strong> (<em>float</em>) – Width space between cells in mm.</p></li>
+<li><p><strong>bottom</strong> (<em>float</em>) – Bottom space of grid in mm.</p></li>
+<li><p><strong>top</strong> (<em>float</em>) – Top space of grid in mm.</p></li>
+<li><p><strong>left</strong> (<em>float</em>) – Left space of grid in mm.</p></li>
+<li><p><strong>right</strong> (<em>float</em>) – Right space of grid in mm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of type <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code>, defining the
+figure on which the grid is defined, and 
+<code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.gridspec.GridSpec</span></code>, defining the grid.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Matthias Bieg.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

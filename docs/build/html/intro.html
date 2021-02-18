@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Introduction &mdash; hmap 0.9.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation" href="hmap.html" />
+    <link rel="prev" title="Welcome to hmap’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> hmap
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#clustered-heatmap">Clustered heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grouped-clustered-heatmap">Grouped clustered heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#figure-layout">Figure layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hmap.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hmap</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This package implements a convenient heatmap plotting package in python. It offers low level functions for</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Plotting</dt><dd><ul class="simple">
+<li><p>Heatmaps</p></li>
+<li><p>Dendrograms</p></li>
+<li><p>Annotations</p></li>
+<li><p>Legends</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Figure layouting</p></li>
+</ol>
+<div class="section" id="clustered-heatmap">
+<h2>Clustered heatmap<a class="headerlink" href="#clustered-heatmap" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/clustered_heatmap.jpeg" src="_images/clustered_heatmap.jpeg" />
+</div>
+<div class="section" id="grouped-clustered-heatmap">
+<h2>Grouped clustered heatmap<a class="headerlink" href="#grouped-clustered-heatmap" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/grouped_clustered_heatmap.jpeg" src="_images/grouped_clustered_heatmap.jpeg" />
+</div>
+<div class="section" id="figure-layout">
+<h2>Figure layout<a class="headerlink" href="#figure-layout" title="Permalink to this headline">¶</a></h2>
+<p>The hmap package comes with a module for defining the layout of a figure using absolute length measurements. Currently the only unit supported is milimeters. The layout of a figure is defined as a grid. You have to specify</p>
+<ul class="simple">
+<li><p>the number of rows,</p></li>
+<li><p>the number of columns,</p></li>
+<li><p>the widths of the columns,</p></li>
+<li><p>the heights of the rows,</p></li>
+<li><p>the vertical distance between adjacent rows,</p></li>
+<li><p>the horizontal distance between adjacent columns,</p></li>
+<li><p>the size of the bottom border margin,</p></li>
+<li><p>the size of the top border margin,</p></li>
+<li><p>the size of the left border margin, and</p></li>
+<li><p>the size of theright border margin</p></li>
+</ul>
+<p>As said before, the sizes are given in milimeters.</p>
+<img alt="_images/figure_layout.jpeg" src="_images/figure_layout.jpeg" />
+<p>The above plot shows a figure layout created with the hmap’s layout subpackage.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="hmap.html" class="btn btn-neutral float-right" title="Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to hmap’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Matthias Bieg.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
