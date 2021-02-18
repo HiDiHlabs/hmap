@@ -1,3 +1,6 @@
+'''This class offers basic plot Functions for generating nice heatmaps.
+'''
+
 from scipy.spatial.distance import pdist
 from scipy.cluster.hierarchy import linkage, dendrogram, cut_tree
 import numpy as np
@@ -64,16 +67,16 @@ def Heatmap(table,
         'complete'.
     :type linkage_method: str, optional
     :param show_column_labels: If true, show labels of columns, as defined
-        in table, defaults to False
+        in table, defaults to False.
     :type show_column_labels: bool, optional
     :param show_row_labels: If true, show labels of rows, as defined in
         table, defaults to False.
     :type show_row_labels: bool, optional
     :param row_clustering: If true, the rows a clustered according to
-        distance_metric, and linkage_method, defaults to True
+        distance_metric, and linkage_method, defaults to True.
     :type row_clustering: bool, optional
     :param column_clustering: If true, the columns are clustered according
-        to distance_metric, and linkage_method, defaults to True
+        to distance_metric, and linkage_method, defaults to True.
     :type column_clustering: bool, optional
     :param custom_row_clustering: List of Row ids from table in the order
         they should appear in the heatmap. Only applies if row_clustering is
@@ -87,7 +90,7 @@ def Heatmap(table,
         representation, defaults to None.
     :type vmin: float, optional
     :param vmax: Maximal value of data_table, that has a color
-        representation, defaults to None
+        representation, defaults to None.
     :type vmax: float, optional
     :param symmetric_color_scale: If true, vmin, and vmax will be set to
         have equal distance from symmetry point, defaults to False.
@@ -97,18 +100,18 @@ def Heatmap(table,
         defaults to zero.
     :type symmetry_point: float, optional
     :param show_plot: If True, the heatmap will be shown on the given axis,
-        else the function only returns the return values, defaults to True
-    :type show_plot: bool
+        else the function only returns the return values, defaults to True.
+    :type show_plot: bool, optional
     :param optimal_row_ordering: If True, the rows will be ordered optimally
         with regards to the cluster separation. Be careuful: Can take a
-        long time, depending on the number of rows, defaults to True
+        long time, depending on the number of rows, defaults to True.
     :type optimal_row_ordering: bool, optional
     :param optimal_col_ordering: If True, the columns will be ordered
         optimally with regards to the cluster separation. Be careuful:
         Can take a long time, depending on the number of columns, defaults
-        to True
+        to True.
     :type optimal_col_ordering: bool, optional
-    :param ax: Axes instance on which to plot heatmap, defaults to None
+    :param ax: Axes instance on which to plot heatmap, defaults to None.
     :type ax: :class:`matplotlib.axes._subplots.AxesSubplot`,
         optional
 
@@ -238,7 +241,7 @@ def Dendrogram(table,
     :type lw: float, optional
     :param n_clust: Number of clusters in which the dendrogram should be cut.
         Note: Dendrogram cutting makes use of scipy.cluster.hierarchy.cut_tree
-        function, defaults to None
+        function, defaults to None.
     :type n_clust: int, optional
     :param optimal_row_ordering: If True, the rows will be ordered optimally
         with regards to the cluster separation. Be careuful: Can take a long
@@ -248,13 +251,13 @@ def Dendrogram(table,
         with regards to the cluster separation. Be careuful: Can take a long
         time, depending on the number of columns, defaults to True.
     :type optimal_col_ordering: bool, optional
-    :param ax: Axes n which to plot the dendrogram, defaults to None
+    :param ax: Axes n which to plot the dendrogram, defaults to None.
     :type ax: :class:`matplotlib.axes._subplots.AxesSubplot`
 
     :return: Tuple containing the following entries:
         1. Resulting dictionary from scipy.cluster.hierarchy.dendrogram
         function.
-        2. linkager matrix, that is returned from
+        2. linkage matrix, that is returned from
         scipy.cluster.hierarchy.linkage function
         3. dictionary containing the row_ids, (in case of axis = 0), or
         column_ids (in case of axis = 1) that are assigned to different
@@ -337,7 +340,7 @@ def Annotation(ids_sorted,
     :param annotation_df: DataFrame containing grouping informatation for the
         ids for which the annotation shall be plotted. Columns: groups, rows:
         ids.
-    :type anotation_df: :class:`pandas.DataFrame`
+    :type annotation_df: :class:`pandas.DataFrame`
     :param annotation_col_id: Column id of the group in annotation_df, for which
         the annotation mshall be plotted.
     :type annotation_col_id: str
@@ -354,8 +357,12 @@ def Annotation(ids_sorted,
     :param cmap: ColorMap object, that defines the colormap used for plotting
         continuous variables, defaults to plt.cm.GnBu_r.
     :type cmap: :class:`matplotlib.colors.LinearSegmentedColormap`, optional
+    :param color_dict: If is_categorial is True you can define colors for each
+        category. These colors have to be given as a dict, where the key is the
+        category and the value is the color code, defaults to None.
+    :type color_dict: dict, optional
     :param ax: Axes on which to plot the annotation, defaults to None.
-    :type ax: class:`matplotlib.axes._subplots.AxesSubplot`
+    :type ax: class:`matplotlib.axes._subplots.AxesSubplot`, optional
 
     :return: tuple containing the following two elements:
         1. True, if the annotation was categorial, False otherwise.
@@ -504,7 +511,7 @@ def ColorScale(table,
     :param vmax: Maximal value of data_table, that has a color representation,
         defaults to None.
     :type vmax: float, optional
-    :param ax: Axes instance on which to plot the color scale, defaults to None
+    :param ax: Axes instance on which to plot the color scale, defaults to None.
     :type ax: class:`matplotlib.axes._subplots.AxesSubplot`, optional
 
     :returns: Min. and max value displayed on color scale
@@ -540,7 +547,9 @@ def ColorScale(table,
 
     return vmin, vmax
 
-def Legends(patch_list_dict, annotation_ids = None, ax = None):
+def Legends(patch_list_dict,
+            annotation_ids = None,
+            ax = None):
     """Function that plots Legends based on pathc lists from Annotation
     function.
 

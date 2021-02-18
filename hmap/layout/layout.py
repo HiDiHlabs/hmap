@@ -1,3 +1,6 @@
+'''This module offers functions for creating nice and clean figure layouts.
+'''
+
 from matplotlib.gridspec import GridSpec
 import matplotlib.pyplot as plt
 
@@ -9,7 +12,7 @@ def layoutGrid(nrows, ncols, row_widths, col_heights, hspace, wspace, bottom,
     :type nrows: int
     :param ncols: Number of columns in the grid.
     :type ncols: int
-    :param row_withs: list of row widths in mm, as type float.
+    :param row_widths: list of row widths in mm, as type float.
     :type row_widths: list
 	:param col_heights: list of column heights in mm, as type floar
     :type col_heights: list
