@@ -17,12 +17,12 @@ jobs:
         python setup.py 
     - name: Build a binary wheel and a source tarball
       run: >-
-      python -m
-      build
-      --sdist
-      --wheel
-      --outdir dist/
-      .
+        python -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
     - name: Publish distribution to PyPI
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
