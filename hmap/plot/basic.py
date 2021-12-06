@@ -43,6 +43,8 @@ def Heatmap(table,
         show_plot = True,
         optimal_row_ordering = True,
         optimal_col_ordering = True,
+        row_linkage_matrix = None,
+        column_linkage_matrix = None,
         ax = None):
     """Function that plots a two dimensional matrix as clustered heatmap.
     Sorting of rows and columns is done by hierarchical clustering.
@@ -111,6 +113,14 @@ def Heatmap(table,
         Can take a long time, depending on the number of columns, defaults
         to True.
     :type optimal_col_ordering: bool, optional
+    :param row_linkage_matrix: Linkage matrix calculated by 
+        scipy.cluster.hierarchy.linkage and used fo clustering, sorting, and
+        dendrogram calculation, default None
+    :type row_linkage_matrix: ndarray, optional
+    :param column_linkage_matrix: Linkage matrix calculated by 
+        scipy.cluster.hierarchy.linkage and used fo clustering, sorting, and
+        dendrogram calculation, default None
+    :type column_linkage_matrix: ndarray, optional
     :param ax: Axes instance on which to plot heatmap, defaults to None.
     :type ax: :class:`matplotlib.axes._subplots.AxesSubplot`,
         optional
@@ -132,11 +142,12 @@ def Heatmap(table,
     column_names_reordered = list(table.columns)
     if(column_clustering):
         distance_matrix = pdist(table.T, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix,
-                                 metric=distance_metric,
-                                 method=linkage_method,
-                                 optimal_ordering=optimal_col_ordering)
-        dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
+        if(column_linkage_matrix is None):
+            column_linkage_matrix = linkage(distance_matrix,
+                                     metric=distance_metric,
+                                     method=linkage_method,
+                                     optimal_ordering=optimal_col_ordering)
+        dendrogram_dict = dendrogram(column_linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
 
@@ -149,11 +160,12 @@ def Heatmap(table,
     row_names_reordered = list(table.index)
     if(row_clustering):
         distance_matrix = pdist(table, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix,
-                                 metric=distance_metric,
-                                 method=linkage_method,
-                                 optimal_ordering=optimal_row_ordering)
-        dendrogram_dict = dendrogram(linkage_matrix, no_plot=True)
+        if(row_linkage_matrix is None):
+            row_linkage_matrix = linkage(distance_matrix,
+                                     metric=distance_metric,
+                                     method=linkage_method,
+                                     optimal_ordering=optimal_row_ordering)
+        dendrogram_dict = dendrogram(row_linkage_matrix, no_plot=True)
 
         leaves = dendrogram_dict["leaves"]
 
@@ -204,7 +216,12 @@ def Heatmap(table,
         else:
             plt.yticks([], [])
 
-    return column_names_reordered, row_names_reordered, vmin, vmax
+    return (column_names_reordered, 
+            row_names_reordered, 
+            vmin, 
+            vmax,
+            column_linkage_matrix,
+            row_linkage_matrix)
 
 def Dendrogram(table,
         distance_metric="correlation",
@@ -214,6 +231,7 @@ def Dendrogram(table,
         n_clust = None,
         optimal_row_ordering=True,
         optimal_col_ordering=True,
+        linkage_matrix = None,
         ax = None):
     """Function that plots a dendrogram on axis 0 (rows), or axis 1
     (columns) of a :class:`pandas.DataFrame`.
@@ -251,6 +269,10 @@ def Dendrogram(table,
         with regards to the cluster separation. Be careuful: Can take a long
         time, depending on the number of columns, defaults to True.
     :type optimal_col_ordering: bool, optional
+    :param linkage_matrix: Linkage matrix calculated by
+        scipy.cluster.hierarchy.linkage and used fo clustering, sorting, and    
+        dendrogram calculation, default None
+    :type linkage_matrix: ndarray, optional
     :param ax: Axes n which to plot the dendrogram, defaults to None.
     :type ax: :class:`matplotlib.axes._subplots.AxesSubplot`
 
@@ -268,16 +290,17 @@ def Dendrogram(table,
 
     ids = None
     dendrogram_dict = None
-    linkage_matrix = None
     cluster_dict = None
     color_threshold = 0
+    names_reorderd = None
     if(axis == 0):
         ids = list(table.index)
-        distance_matrix = pdist(table, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix,
-                                 metric=distance_metric,
-                                 method=linkage_method,
-                                 optimal_ordering=optimal_row_ordering)
+        if(linkage_matrix is None):
+            distance_matrix = pdist(table, metric=distance_metric)
+            linkage_matrix = linkage(distance_matrix,
+                                     metric=distance_metric,
+                                     method=linkage_method,
+                                     optimal_ordering=optimal_row_ordering)
         if(not n_clust is None):
             cluster_dict = {}
             color_threshold = linkage_matrix[-1*(n_clust-1), 2]
@@ -292,12 +315,17 @@ def Dendrogram(table,
             dendrogram_dict = dendrogram(linkage_matrix,
                                          orientation="left",
                                          color_threshold = color_threshold)
+            leaves = dendrogram_dict["leaves"]                                      
+            names = list(table.index)
+            names_reordered = [ names[i] for i in leaves ]
+                
     elif(axis == 1):
         ids = table.columns
-        distance_matrix = pdist(table.T, metric=distance_metric)
-        linkage_matrix = linkage(distance_matrix, metric=distance_metric,
-                                 method=linkage_method,
-                                 optimal_ordering=optimal_col_ordering)
+        if(linkage_matrix is None):
+            distance_matrix = pdist(table.T, metric=distance_metric)
+            linkage_matrix = linkage(distance_matrix, metric=distance_metric,
+                                     method=linkage_method,
+                                     optimal_ordering=optimal_col_ordering)
         if(not n_clust is None):
             cluster_dict = {}
             color_threshold = linkage_matrix[-1*(n_clust-1), 2]
@@ -312,6 +340,9 @@ def Dendrogram(table,
         with plt.rc_context({'lines.linewidth': lw}):
             dendrogram_dict = dendrogram(linkage_matrix,
                                          color_threshold = color_threshold)
+            leaves = dendrogram_dict["leaves"]
+            names = list(table.columns)
+            names_reordered = [ names[i] for i in leaves ]
 
     ax.spines["left"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -321,7 +352,7 @@ def Dendrogram(table,
     plt.xticks([], [])
     plt.yticks([], [])
 
-    return dendrogram_dict, linkage_matrix, cluster_dict
+    return dendrogram_dict, linkage_matrix, cluster_dict, names_reordered
 
 def Annotation(ids_sorted,
                annotation_df,
