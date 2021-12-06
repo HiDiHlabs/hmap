@@ -443,9 +443,9 @@ class HeatMap():
         if(not self.row_annotation_ids is None):
             col_widths += ([self.annotation_extension]*                                     
                             len(self.row_annotation_ids))
+        col_widths += [self.heatmap_width]
         if(self.plot_legends):
             col_widths += [self.col_legends_width]
-        col_widths += [self.heatmap_width]
         n_cols = len(col_widths)
 
         self.__fig, self.__grid = layoutGrid(n_rows,
