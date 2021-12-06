@@ -655,7 +655,10 @@ def Legends(patch_list_dict,
 
             if(p.p1[0] > x_max):
                 x_max = p.p1[0]+2.*(1./width)
-            y = p.p0[1]
+            # Is calculated as a proportion of figure height. This should be
+            # adapted in future as a absolute measure of lenght, e.g. mm, inch,
+            # ...
+            y = p.p0[1]-2.*(1/height)
             ax.add_artist(legend)
             ax.axis("off")
         else:
