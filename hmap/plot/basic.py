@@ -624,7 +624,12 @@ def Legends(patch_list_dict,
     color_scale_height = 5.*(1./height)
     color_scale_width = 20.*(1./width)
 
+    i = 0
     for annotation_id in annotation_ids:
+        next_annotation_id = None
+        if(i+1 < len(annotation_ids)):
+            next_annotation_id = annotation_ids[i+1]
+
         # If annotation data is categorial
         if(patch_list_dict[annotation_id][0]):
             patch_list = patch_list_dict[annotation_id][1]
@@ -655,10 +660,13 @@ def Legends(patch_list_dict,
 
             if(p.p1[0] > x_max):
                 x_max = p.p1[0]+2.*(1./width)
-            # Is calculated as a proportion of figure height. This should be
-            # adapted in future as a absolute measure of lenght, e.g. mm, inch,
-            # ...
-            y = p.p0[1]-2.*(1/height)
+            if(not next_annotation_id is None and 
+                    patch_list_dict[next_annotation_id][0]):
+                y = p.p0[1]
+            elif(next_annotation_id is None):
+                y = p.p0[1]
+            else:
+                y = p.p0[1]-4.*(1/height)
             ax.add_artist(legend)
             ax.axis("off")
         else:
@@ -707,3 +715,4 @@ def Legends(patch_list_dict,
             y = p.y1-6.*(1./height)
             ax.set_aspect('auto')
             ax.axis("off")
+        i += 1
