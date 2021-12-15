@@ -460,8 +460,11 @@ class HeatMap():
                                              self.right_margin
                                             )
 
-    def show(self):
+    def show(self, filename = None):
         """Method that plots heatmap
+            :param filename: Full path to file in which the figure should be
+                saved, default None
+            :type filename: str, optional
         """
         # Create grid
         self.__create_grid()
@@ -640,3 +643,5 @@ class HeatMap():
                           ax = ax
                          )
 
+        if(not filename is None):
+            plt.savefig(filename)
