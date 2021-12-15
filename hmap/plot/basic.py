@@ -642,7 +642,7 @@ def Legends(patch_list_dict,
                                bbox_to_anchor=(x, y),
                                frameon = False)
             plt.draw()
-            p = legend.get_window_extent().inverse_transformed(ax.transAxes)
+            p = legend.get_window_extent().transformed(ax.transAxes.inverted())
             if(p.p0[1] < 0):
                 legend.remove()
                 y = 1
@@ -656,7 +656,7 @@ def Legends(patch_list_dict,
                                bbox_to_anchor=(x, y),
                                frameon=False)
                 plt.draw()
-                p = legend.get_window_extent().inverse_transformed(ax.transAxes)
+                p = legend.get_window_extent().transformed(ax.transAxes.inverted())
 
             if(p.p1[0] > x_max):
                 x_max = p.p1[0]+2.*(1./width)
@@ -677,7 +677,7 @@ def Legends(patch_list_dict,
                         extent=[x, x+color_scale_width, y, y-color_scale_height],
                         vmin=0
                       )
-            p = img.get_window_extent().inverse_transformed(ax.transAxes)
+            p = img.get_window_extent().transformed(ax.transAxes.inverted())
             if(p.y1-6.*(1./height) <= 0):
                 img.remove()
                 y = 1.-4.*(1./height)
@@ -688,7 +688,7 @@ def Legends(patch_list_dict,
                         extent=[x, x+color_scale_width, y, y-color_scale_height],
                         vmin=0
                       )
-                p = img.get_window_extent().inverse_transformed(ax.transAxes)
+                p = img.get_window_extent().transformed(ax.transAxes.inverted())
 
             # Plot annotation ID
             plt.text(x+color_scale_width/2.,
